@@ -10,15 +10,44 @@ export default function AuthForm({ mode }) {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [msg, setMsg] = useState("");
+  const [busy, setBusy] = useState(false);
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
+    setMsg("");
+
     if (isSignup && password !== confirm) {
       setMsg("Passwords don't match.");
       return;
     }
-    // No backend yet — this is a UI preview. Wire up to Neon later.
-    setMsg("Accounts aren't connected yet — this is a preview of the form.");
+
+    setBusy(true);
+    try {
+      const res = await fetch(isSignup ? "/api/signup" : "/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        setMsg(data.error || "Something went wrong.");
+        return;
+      }
+
+      if (isSignup) {
+        setMsg(data.message || "Account created — pending approval.");
+        setPassword("");
+        setConfirm("");
+      } else {
+        // logged in — go to the site (admin area comes later)
+        window.location.href = "/";
+      }
+    } catch {
+      setMsg("Network error. Please try again.");
+    } finally {
+      setBusy(false);
+    }
   }
 
   const label = { display: "block", fontSize: "14px", fontWeight: 600, margin: "0 0 6px" };
@@ -107,19 +136,25 @@ export default function AuthForm({ mode }) {
 
           <button
             type="submit"
+            disabled={busy}
             style={{
               width: "100%",
               padding: "13px",
               borderRadius: "9999px",
               border: "none",
-              cursor: "pointer",
+              cursor: busy ? "default" : "pointer",
               background: "#ffffff",
               color: PURPLE,
               fontSize: "16px",
               fontWeight: 700,
+              opacity: busy ? 0.7 : 1,
             }}
           >
-            {isSignup ? "Create account" : "Log in"}
+            {busy
+              ? "Please wait…"
+              : isSignup
+              ? "Create account"
+              : "Log in"}
           </button>
         </form>
 
