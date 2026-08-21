@@ -10,15 +10,25 @@ export default function Home() {
         justifyContent: "center",
       }}
     >
-      <img
-        src="/IMG_4307.jpeg"
-        alt="Emblem"
+      <div
         style={{
           width: "min(40vh, 80vw)",
-          height: "auto",
+          aspectRatio: "1 / 1",
           borderRadius: "50%",
+          overflow: "hidden",
         }}
-      />
+      >
+        <img
+          src="/IMG_4307.jpeg"
+          alt="Emblem"
+          style={{
+            width: "114%",
+            height: "114%",
+            objectFit: "cover",
+            transform: "translate(-6%, -6%)",
+          }}
+        />
+      </div>
     </main>
   );
 }
