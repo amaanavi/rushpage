@@ -17,6 +17,8 @@ export async function POST(request) {
     return Response.json({ error: "You can't reject your own account." }, { status: 400 });
   }
 
-  await getSql()`UPDATE users SET status = 'rejected' WHERE id = ${id}`;
+  // Reject = fully remove the person's record from the database.
+  // Extra guard: never delete an admin account via this route.
+  await getSql()`DELETE FROM users WHERE id = ${id} AND role <> 'admin'`;
   return Response.json({ ok: true });
 }

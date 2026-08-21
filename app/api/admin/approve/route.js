@@ -12,6 +12,12 @@ export async function POST(request) {
   const { id } = await request.json().catch(() => ({}));
   if (!id) return Response.json({ error: "Missing id." }, { status: 400 });
 
-  await getSql()`UPDATE users SET status = 'approved' WHERE id = ${id}`;
+  // Admit = approved general MEMBER. Force role to 'member' so this path can
+  // never grant admin. Only pending accounts can be admitted here.
+  await getSql()`
+    UPDATE users
+    SET status = 'approved', role = 'member'
+    WHERE id = ${id} AND status = 'pending'
+  `;
   return Response.json({ ok: true });
 }
