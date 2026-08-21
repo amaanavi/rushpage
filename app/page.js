@@ -102,7 +102,7 @@ function Calendar() {
   return (
     <div
       style={{
-        width: "min(680px, 92vw)",
+        width: "min(1200px, 94vw)",
         margin: "0 auto",
         color: "#ffffff",
       }}
@@ -124,7 +124,7 @@ function Calendar() {
         >
           ‹
         </button>
-        <h3 style={{ margin: 0, fontSize: "22px", fontWeight: 700 }}>
+        <h3 style={{ margin: 0, fontSize: "30px", fontWeight: 700 }}>
           {MONTH_NAMES[month]} {year}
         </h3>
         <button
@@ -142,8 +142,8 @@ function Calendar() {
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(7, 1fr)",
-          gap: "6px",
-          marginBottom: "6px",
+          gap: "8px",
+          marginBottom: "8px",
         }}
       >
         {WEEKDAYS.map((w) => (
@@ -151,10 +151,10 @@ function Calendar() {
             key={w}
             style={{
               textAlign: "center",
-              fontSize: "12px",
+              fontSize: "15px",
               fontWeight: 700,
               opacity: 0.8,
-              padding: "4px 0",
+              padding: "6px 0",
             }}
           >
             {w}
@@ -167,7 +167,7 @@ function Calendar() {
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(7, 1fr)",
-          gap: "6px",
+          gap: "8px",
         }}
       >
         {cells.map((day, i) => {
@@ -176,19 +176,19 @@ function Calendar() {
             <div
               key={i}
               style={{
-                minHeight: "92px",
-                borderRadius: "8px",
+                minHeight: "140px",
+                borderRadius: "10px",
                 background: day ? "rgba(255,255,255,0.08)" : "transparent",
                 border: day ? "1px solid rgba(255,255,255,0.12)" : "none",
                 display: "flex",
                 flexDirection: "column",
-                gap: "4px",
-                padding: "6px",
+                gap: "5px",
+                padding: "9px",
               }}
             >
               <div
                 style={{
-                  fontSize: "13px",
+                  fontSize: "17px",
                   fontWeight: 700,
                   textAlign: "right",
                   opacity: 0.85,
@@ -201,13 +201,13 @@ function Calendar() {
                   <div
                     key={j}
                     style={{
-                      fontSize: "10px",
-                      lineHeight: 1.25,
+                      fontSize: "12px",
+                      lineHeight: 1.3,
                       fontWeight: 600,
                       color: "#ffffff",
                       background: "rgba(0,0,0,0.22)",
-                      borderRadius: "4px",
-                      padding: "3px 5px",
+                      borderRadius: "5px",
+                      padding: "4px 6px",
                     }}
                   >
                     {ev}
