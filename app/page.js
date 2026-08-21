@@ -41,6 +41,31 @@ const MONTH_NAMES = [
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+// Events keyed by `${year}-${monthIndex}-${day}` (monthIndex is 0-based).
+const EVENTS = {
+  "2026-7-31": ["First Day of Frosh"],
+  "2026-8-4": ["Last Day of Frosh (Rush Officially Starts)", "Rush Party: Fiji Friday"],
+  "2026-8-5": [
+    "Cookout + Meet the Brothers @ Bhar's Roof",
+    "Party @ Alec's House (Next to Bhar's House)",
+  ],
+  "2026-8-7": ["First Fiji Brothers Meeting"],
+  "2026-8-8": ["Classes Start"],
+  "2026-8-9": ["Meet the Brothers (Official)", "Hid The Maddy"],
+  "2026-8-12": ["Meet the Brothers (Official)", "Rush Party: Theme TBD"],
+  "2026-8-14": ["Second Fiji Brothers Meeting", "Voting on Pledges Starts"],
+  "2026-8-16": ["Poker Night"],
+  "2026-8-17": ["Hit a Club"],
+  "2026-8-19": ["Fiji Club Night", "AP?"],
+  "2026-8-20": ["Football Watch Party", "Hit The Maddy"],
+  "2026-8-21": ["Third Fiji Brothers Meeting"],
+  "2026-8-24": ["First Social?", "Hit a Club"],
+  "2026-8-26": ["Fiji Club Night", "AP?"],
+  "2026-8-28": ["Fourth Fiji Brothers Meeting", "Final Vote on Pledges"],
+  "2026-9-1": ["Last Pinning", "Third Social?"],
+  "2026-9-4": ["Official Pinning Ceremony", "Dinner at Duke of York"],
+};
+
 function scrollToId(id) {
   const el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -145,25 +170,52 @@ function Calendar() {
           gap: "6px",
         }}
       >
-        {cells.map((day, i) => (
-          <div
-            key={i}
-            style={{
-              aspectRatio: "1 / 1",
-              borderRadius: "8px",
-              background: day ? "rgba(255,255,255,0.08)" : "transparent",
-              border: day ? "1px solid rgba(255,255,255,0.12)" : "none",
-              display: "flex",
-              alignItems: "flex-start",
-              justifyContent: "flex-end",
-              padding: "6px 8px",
-              fontSize: "14px",
-              fontWeight: 600,
-            }}
-          >
-            {day || ""}
-          </div>
-        ))}
+        {cells.map((day, i) => {
+          const dayEvents = day ? EVENTS[`${year}-${month}-${day}`] : null;
+          return (
+            <div
+              key={i}
+              style={{
+                minHeight: "92px",
+                borderRadius: "8px",
+                background: day ? "rgba(255,255,255,0.08)" : "transparent",
+                border: day ? "1px solid rgba(255,255,255,0.12)" : "none",
+                display: "flex",
+                flexDirection: "column",
+                gap: "4px",
+                padding: "6px",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "13px",
+                  fontWeight: 700,
+                  textAlign: "right",
+                  opacity: 0.85,
+                }}
+              >
+                {day || ""}
+              </div>
+              {dayEvents &&
+                dayEvents.map((ev, j) => (
+                  <div
+                    key={j}
+                    style={{
+                      fontSize: "10px",
+                      lineHeight: 1.25,
+                      fontWeight: 600,
+                      color: "#ffffff",
+                      background: "rgba(0,0,0,0.22)",
+                      borderRadius: "4px",
+                      padding: "3px 5px",
+                    }}
+                  >
+                    {ev}
+                  </div>
+                ))}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
