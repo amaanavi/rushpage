@@ -11,6 +11,12 @@ const NAV = [
   { label: "Meet The Brothers", target: "meet-the-brothers" },
 ];
 
+const CONTACTS = [
+  { label: "Official Instagram", handle: "@fijiuoft", url: "https://instagram.com/fijiuoft" },
+  { label: "Rush", handle: "@alec_maanavi", url: "https://instagram.com/alec_maanavi" },
+  { label: "Philanthropy", handle: "@liam.veale", url: "https://instagram.com/liam.veale" },
+];
+
 // Inclusive range of months to show: Aug 2026 .. Apr 2027
 const MONTHS = [
   { year: 2026, month: 7 }, // August (0-indexed month)
@@ -297,10 +303,42 @@ export default function Home() {
         </a>
       </nav>
 
+      {/* Contact (top-right, below the sticky bar) */}
+      <aside
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          padding: "20px 24px 0",
+        }}
+      >
+        <div style={{ textAlign: "right" }}>
+          <div style={{ fontSize: "17px", fontWeight: 700, marginBottom: "6px" }}>
+            Contact
+          </div>
+          {CONTACTS.map((c) => (
+            <a
+              key={c.url}
+              href={c.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "block",
+                fontSize: "14px",
+                lineHeight: 1.6,
+                color: "#ffffff",
+                textDecoration: "none",
+              }}
+            >
+              {c.label}: <span style={{ fontWeight: 600 }}>{c.handle}</span>
+            </a>
+          ))}
+        </div>
+      </aside>
+
       {/* Hero */}
       <section
         style={{
-          minHeight: "calc(100vh - 65px)",
+          minHeight: "calc(100vh - 165px)",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
