@@ -11,6 +11,15 @@ const NAV = [
   { label: "Meet The Brothers", target: "meet-the-brothers" },
 ];
 
+// Order: President, VP, Recording Sec., Corresponding Sec., Historian
+const BROTHERS = [
+  { name: "Harrison Silcox — President", src: "/brother-1-president.png" },
+  { name: "Lucas Swarowsky — Vice President and Treasurer", src: "/brother-2-vp.png" },
+  { name: "Oskar Vermeire — Recording Secretary", src: "/brother-3-recording.png" },
+  { name: "Henry Thompson — Corresponding Secretary", src: "/brother-4-corresponding.png" },
+  { name: "Charles Vermeire — Historian", src: "/brother-5-historian.png" },
+];
+
 const CONTACTS = [
   { label: "Official Instagram", handle: "@fijiuoft", url: "https://instagram.com/fijiuoft" },
   { label: "Rush", handle: "@alec_maanavi", url: "https://instagram.com/alec_maanavi" },
@@ -409,7 +418,28 @@ export default function Home() {
       </Section>
 
       <Section id="meet-the-brothers" title="Meet The Brothers">
-        <p style={{ margin: 0, opacity: 0.85 }}>Content coming soon.</p>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "20px",
+            width: "min(1200px, 94vw)",
+          }}
+        >
+          {BROTHERS.map((b) => (
+            <img
+              key={b.src}
+              src={encodeURI(b.src)}
+              alt={b.name}
+              style={{
+                width: "min(220px, 60vw)",
+                borderRadius: "12px",
+                display: "block",
+              }}
+            />
+          ))}
+        </div>
       </Section>
     </main>
   );
