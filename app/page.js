@@ -374,6 +374,21 @@ export default function Home() {
         >
           Interested In Joining?
         </a>
+
+        <a
+          href="/login"
+          style={{
+            padding: "9px 20px",
+            fontSize: "15px",
+            fontWeight: 600,
+            textDecoration: "none",
+            color: "#ffffff",
+            border: "1px solid rgba(255,255,255,0.55)",
+            borderRadius: "9999px",
+          }}
+        >
+          Log In
+        </a>
       </nav>
 
       {/* Crest (top-left) + Contact (top-right), below the sticky bar */}
