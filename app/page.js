@@ -328,7 +328,7 @@ export default function Home() {
           <img
             src="/images.png"
             alt="University of Toronto crest"
-            style={{ maxWidth: "62%", maxHeight: "78%", objectFit: "contain" }}
+            style={{ maxWidth: "88%", maxHeight: "96%", objectFit: "contain" }}
           />
         </div>
 
