@@ -247,7 +247,7 @@ export default function Home() {
       style={{
         minHeight: "100vh",
         width: "100%",
-        backgroundColor: "#6C3BAA",
+        backgroundColor: "#4E2C84",
         color: "#ffffff",
         fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
       }}
@@ -258,7 +258,7 @@ export default function Home() {
           position: "sticky",
           top: 0,
           zIndex: 10,
-          backgroundColor: "#6C3BAA",
+          backgroundColor: "#4E2C84",
           display: "flex",
           flexWrap: "wrap",
           alignItems: "center",
