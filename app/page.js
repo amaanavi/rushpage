@@ -318,7 +318,7 @@ export default function Home() {
             width: "90px",
             height: "90px",
             borderRadius: "50%",
-            background: "#ffffff",
+            background: "transparent",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -347,11 +347,19 @@ export default function Home() {
                 fontSize: "14px",
                 lineHeight: 1.6,
                 color: "#ffffff",
-                textDecoration: "underline",
-                textUnderlineOffset: "3px",
+                textDecoration: "none",
               }}
             >
-              {c.label}: <span style={{ fontWeight: 600 }}>{c.handle}</span>
+              {c.label}:{" "}
+              <span
+                style={{
+                  fontWeight: 600,
+                  textDecoration: "underline",
+                  textUnderlineOffset: "3px",
+                }}
+              >
+                {c.handle}
+              </span>
             </a>
           ))}
         </div>
