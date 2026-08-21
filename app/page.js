@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 const FORM_URL =
   "https://docs.google.com/forms/d/1tXk4yM9OBMUEcgwQmtXekEjcnMQbn38vWdgj0BODFsk/viewform";
@@ -71,9 +71,11 @@ const CONTACTS = [
   { label: "Philanthropy", handle: "@liam.veale", url: "https://instagram.com/liam.veale" },
 ];
 
-// Inclusive range of months to show: Sep 2026 .. Apr 2027
+// Inclusive range of months to show: Aug 2026 .. Apr 2027
+// (calendar opens on September; August is reachable one page back)
 const MONTHS = [
-  { year: 2026, month: 8 }, // September (0-indexed month)
+  { year: 2026, month: 7 }, // August (0-indexed month)
+  { year: 2026, month: 8 }, // September
   { year: 2026, month: 9 }, // October
   { year: 2026, month: 10 }, // November
   { year: 2026, month: 11 }, // December
@@ -123,7 +125,7 @@ function scrollToId(id) {
 }
 
 function Calendar() {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(1); // open on September (August is index 0)
   const { year, month } = MONTHS[index];
 
   const firstWeekday = new Date(year, month, 1).getDay();
@@ -538,20 +540,14 @@ export default function Home() {
               }}
             >
               {MAJORS.map((m, i) => (
-                <span key={m}>
+                <Fragment key={m}>
                   <span style={majorStyle(i)}>{m}</span>
                   {i < MAJORS.length - 1 && (
-                    <span
-                      style={{
-                        opacity: 0.4,
-                        fontSize: "14px",
-                        margin: "0 10px",
-                      }}
-                    >
-                      ·
+                    <span style={{ opacity: 0.4, fontSize: "14px" }}>
+                      {" · "}
                     </span>
                   )}
-                </span>
+                </Fragment>
               ))}
             </p>
           </SubColumn>
