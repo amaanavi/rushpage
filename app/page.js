@@ -303,14 +303,35 @@ export default function Home() {
         </a>
       </nav>
 
-      {/* Contact (top-right, below the sticky bar) */}
+      {/* Crest (top-left) + Contact (top-right), below the sticky bar */}
       <aside
         style={{
           display: "flex",
-          justifyContent: "flex-end",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+          gap: "16px",
           padding: "20px 24px 0",
         }}
       >
+        <div
+          style={{
+            width: "90px",
+            height: "90px",
+            borderRadius: "50%",
+            background: "#ffffff",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+          }}
+        >
+          <img
+            src="/images.png"
+            alt="University of Toronto crest"
+            style={{ maxWidth: "62%", maxHeight: "78%", objectFit: "contain" }}
+          />
+        </div>
+
         <div style={{ textAlign: "right" }}>
           <div style={{ fontSize: "17px", fontWeight: 700, marginBottom: "6px" }}>
             Contact
