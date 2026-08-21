@@ -445,6 +445,35 @@ export default function Home() {
                   Signed in as<br />
                   <strong>{user.email}</strong>
                 </div>
+
+                <a
+                  href="/members"
+                  style={{
+                    display: "block",
+                    padding: "8px 4px",
+                    fontSize: "14px",
+                    color: "#fff",
+                    textDecoration: "none",
+                  }}
+                >
+                  Members Area
+                </a>
+                {user.role === "admin" && (
+                  <a
+                    href="/admin"
+                    style={{
+                      display: "block",
+                      padding: "8px 4px",
+                      marginBottom: "6px",
+                      fontSize: "14px",
+                      color: "#fff",
+                      textDecoration: "none",
+                    }}
+                  >
+                    Admin
+                  </a>
+                )}
+
                 <button
                   onClick={logout}
                   style={{
