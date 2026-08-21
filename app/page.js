@@ -326,7 +326,8 @@ export default function Home() {
                 fontSize: "14px",
                 lineHeight: 1.6,
                 color: "#ffffff",
-                textDecoration: "none",
+                textDecoration: "underline",
+                textUnderlineOffset: "3px",
               }}
             >
               {c.label}: <span style={{ fontWeight: 600 }}>{c.handle}</span>
