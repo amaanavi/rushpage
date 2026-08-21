@@ -20,7 +20,50 @@ const BROTHERS = [
   { name: "Charles Vermeire — Historian", src: "/brother-5-historian.png" },
 ];
 
-const MAJORS = [];
+const MAJORS = [
+  "Finance",
+  "Economics",
+  "Math",
+  "Physics",
+  "Bio-Medical Engineering",
+  "Aerospace Engineering",
+  "Philosophy",
+  "Political Science",
+  "Human Biology",
+  "Physiology",
+  "Immunology",
+  "Accounting",
+  "Neuroscience",
+  "Psychology",
+  "Cognitive Science",
+  "Architecture",
+  "History",
+  "Environmental Sciences",
+  "Book and Media Studies",
+  "Linguistics",
+  "Statistics",
+  "Criminology",
+  "Business",
+  "Art History",
+  "European Studies",
+  "Islamic Studies",
+  "Classics",
+  "Religion",
+];
+
+// Deterministic per-item styling so the list reads like a hand-set page,
+// not a row of identical AI pills. Varies size / weight / italic by index.
+const MAJOR_SIZES = [26, 17, 20, 32, 15, 22, 18, 28, 16, 24];
+function majorStyle(i) {
+  const size = MAJOR_SIZES[i % MAJOR_SIZES.length];
+  return {
+    fontSize: `${size}px`,
+    fontWeight: i % 3 === 0 ? 700 : i % 3 === 1 ? 400 : 600,
+    fontStyle: i % 4 === 2 ? "italic" : "normal",
+    opacity: 0.72 + ((i * 7) % 5) * 0.07, // 0.72 .. 1.0
+    whiteSpace: "nowrap",
+  };
+}
 
 const CONTACTS = [
   { label: "Official Instagram", handle: "@fijiuoft", url: "https://instagram.com/fijiuoft" },
@@ -486,37 +529,32 @@ export default function Home() {
           </SubColumn>
 
           <SubColumn title="Majors">
-            {MAJORS.length === 0 ? (
-              <p style={{ margin: 0, opacity: 0.7, textAlign: "center" }}>
-                Content coming soon.
-              </p>
-            ) : (
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: "12px",
-                  justifyContent: "center",
-                }}
-              >
-                {MAJORS.map((m) => (
-                  <span
-                    key={m}
-                    style={{
-                      padding: "9px 16px",
-                      borderRadius: "9999px",
-                      background: "rgba(255,255,255,0.12)",
-                      border: "1px solid rgba(255,255,255,0.28)",
-                      fontSize: "15px",
-                      fontWeight: 600,
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {m}
-                  </span>
-                ))}
-              </div>
-            )}
+            <p
+              style={{
+                margin: 0,
+                fontFamily: "Georgia, 'Times New Roman', serif",
+                textAlign: "center",
+                lineHeight: 1.7,
+                color: "#ffffff",
+              }}
+            >
+              {MAJORS.map((m, i) => (
+                <span key={m}>
+                  <span style={majorStyle(i)}>{m}</span>
+                  {i < MAJORS.length - 1 && (
+                    <span
+                      style={{
+                        opacity: 0.4,
+                        fontSize: "14px",
+                        margin: "0 10px",
+                      }}
+                    >
+                      ·
+                    </span>
+                  )}
+                </span>
+              ))}
+            </p>
           </SubColumn>
         </div>
       </Section>
