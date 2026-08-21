@@ -42,14 +42,14 @@ export default function Home() {
               style={{
                 appearance: "none",
                 border: "none",
+                background: "transparent",
                 cursor: "pointer",
                 padding: "10px 18px",
-                borderRadius: "9999px",
                 fontSize: "15px",
                 fontWeight: 600,
-                color: isActive ? "#4B286D" : "#ffffff",
-                backgroundColor: isActive ? "#ffffff" : "transparent",
-                transition: "background-color 0.15s, color 0.15s",
+                color: "#ffffff",
+                textDecoration: isActive ? "underline" : "none",
+                textUnderlineOffset: "6px",
               }}
             >
               {tab}
