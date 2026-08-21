@@ -20,6 +20,26 @@ const BROTHERS = [
   { name: "Charles Vermeire — Historian", src: "/brother-5-historian.png" },
 ];
 
+const SUMMER_INTERNSHIPS = [
+  "RBC",
+  "TD",
+  "GM",
+  "Enbridge",
+  "MSC",
+  "Irving",
+  "TP ICAP",
+  "EllisDon",
+  "CAMH",
+  "Giorgio Armani",
+  "AmCham Shanghai",
+  "Arnsby Property Management",
+  "Alpine",
+  "Interplay",
+  "677",
+];
+
+const MAJORS = [];
+
 const CONTACTS = [
   { label: "Official Instagram", handle: "@fijiuoft", url: "https://instagram.com/fijiuoft" },
   { label: "Rush", handle: "@alec_maanavi", url: "https://instagram.com/alec_maanavi" },
@@ -224,6 +244,24 @@ function Calendar() {
           );
         })}
       </div>
+    </div>
+  );
+}
+
+function SubColumn({ title, children }) {
+  return (
+    <div style={{ flex: "1 1 340px", minWidth: "280px", maxWidth: "520px" }}>
+      <h3
+        style={{
+          margin: "0 0 20px",
+          fontSize: "24px",
+          fontWeight: 700,
+          textAlign: "center",
+        }}
+      >
+        {title}
+      </h3>
+      {children}
     </div>
   );
 }
@@ -439,6 +477,81 @@ export default function Home() {
               }}
             />
           ))}
+        </div>
+
+        {/* Side-by-side subsections */}
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            alignItems: "stretch",
+            gap: "48px",
+            width: "min(1100px, 94vw)",
+            marginTop: "48px",
+          }}
+        >
+          <SubColumn title="Summer Internships">
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "12px",
+                justifyContent: "center",
+              }}
+            >
+              {SUMMER_INTERNSHIPS.map((c) => (
+                <span
+                  key={c}
+                  style={{
+                    padding: "9px 16px",
+                    borderRadius: "9999px",
+                    background: "rgba(255,255,255,0.12)",
+                    border: "1px solid rgba(255,255,255,0.28)",
+                    fontSize: "15px",
+                    fontWeight: 600,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {c}
+                </span>
+              ))}
+            </div>
+          </SubColumn>
+
+          <SubColumn title="Majors">
+            {MAJORS.length === 0 ? (
+              <p style={{ margin: 0, opacity: 0.7, textAlign: "center" }}>
+                Content coming soon.
+              </p>
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "12px",
+                  justifyContent: "center",
+                }}
+              >
+                {MAJORS.map((m) => (
+                  <span
+                    key={m}
+                    style={{
+                      padding: "9px 16px",
+                      borderRadius: "9999px",
+                      background: "rgba(255,255,255,0.12)",
+                      border: "1px solid rgba(255,255,255,0.28)",
+                      fontSize: "15px",
+                      fontWeight: 600,
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {m}
+                  </span>
+                ))}
+              </div>
+            )}
+          </SubColumn>
         </div>
       </Section>
     </main>
