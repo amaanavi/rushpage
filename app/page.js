@@ -4,7 +4,7 @@ export default function Home() {
       style={{
         minHeight: "100vh",
         width: "100%",
-        backgroundColor: "#6C3BAA",
+        backgroundColor: "#4B286D",
       }}
     />
   );
