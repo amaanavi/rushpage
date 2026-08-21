@@ -20,24 +20,6 @@ const BROTHERS = [
   { name: "Charles Vermeire — Historian", src: "/brother-5-historian.png" },
 ];
 
-const SUMMER_INTERNSHIPS = [
-  "RBC",
-  "TD",
-  "GM",
-  "Enbridge",
-  "MSC",
-  "Irving",
-  "TP ICAP",
-  "EllisDon",
-  "CAMH",
-  "Giorgio Armani",
-  "AmCham Shanghai",
-  "Arnsby Property Management",
-  "Alpine",
-  "Interplay",
-  "677",
-];
-
 const MAJORS = [];
 
 const CONTACTS = [
@@ -492,31 +474,15 @@ export default function Home() {
           }}
         >
           <SubColumn title="Summer Internships">
-            <div
+            <img
+              src="/logos.png"
+              alt="Companies where brothers held summer internships"
               style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "12px",
-                justifyContent: "center",
+                width: "100%",
+                borderRadius: "12px",
+                display: "block",
               }}
-            >
-              {SUMMER_INTERNSHIPS.map((c) => (
-                <span
-                  key={c}
-                  style={{
-                    padding: "9px 16px",
-                    borderRadius: "9999px",
-                    background: "rgba(255,255,255,0.12)",
-                    border: "1px solid rgba(255,255,255,0.28)",
-                    fontSize: "15px",
-                    fontWeight: 600,
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {c}
-                </span>
-              ))}
-            </div>
+            />
           </SubColumn>
 
           <SubColumn title="Majors">
