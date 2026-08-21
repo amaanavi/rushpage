@@ -71,10 +71,9 @@ const CONTACTS = [
   { label: "Philanthropy", handle: "@liam.veale", url: "https://instagram.com/liam.veale" },
 ];
 
-// Inclusive range of months to show: Aug 2026 .. Apr 2027
+// Inclusive range of months to show: Sep 2026 .. Apr 2027
 const MONTHS = [
-  { year: 2026, month: 7 }, // August (0-indexed month)
-  { year: 2026, month: 8 }, // September
+  { year: 2026, month: 8 }, // September (0-indexed month)
   { year: 2026, month: 9 }, // October
   { year: 2026, month: 10 }, // November
   { year: 2026, month: 11 }, // December
@@ -273,9 +272,9 @@ function Calendar() {
   );
 }
 
-function SubColumn({ title, children }) {
+function SubColumn({ title, children, flex = "1 1 340px", maxWidth = "520px" }) {
   return (
-    <div style={{ flex: "1 1 340px", minWidth: "280px", maxWidth: "520px" }}>
+    <div style={{ flex, minWidth: "280px", maxWidth }}>
       <h3
         style={{
           margin: "0 0 20px",
@@ -484,10 +483,10 @@ export default function Home() {
         <div
           style={{
             display: "flex",
-            flexWrap: "wrap",
+            flexWrap: "nowrap",
             justifyContent: "center",
-            gap: "20px",
-            width: "min(1400px, 96vw)",
+            gap: 0,
+            width: "min(1500px, 98vw)",
           }}
         >
           {BROTHERS.map((b) => (
@@ -496,8 +495,8 @@ export default function Home() {
               src={encodeURI(b.src)}
               alt={b.name}
               style={{
-                width: "min(260px, 42vw)",
-                borderRadius: "12px",
+                width: "20%",
+                borderRadius: 0,
                 display: "block",
               }}
             />
@@ -510,25 +509,25 @@ export default function Home() {
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "center",
-            alignItems: "stretch",
+            alignItems: "flex-start",
             gap: "48px",
-            width: "min(1100px, 94vw)",
+            width: "min(1400px, 96vw)",
             marginTop: "48px",
           }}
         >
-          <SubColumn title="Summer Internships">
+          <SubColumn title="Summer Internships" flex="1 1 720px" maxWidth="860px">
             <img
               src="/logos.png"
               alt="Companies where brothers held summer internships"
               style={{
                 width: "100%",
-                borderRadius: "12px",
+                borderRadius: 0,
                 display: "block",
               }}
             />
           </SubColumn>
 
-          <SubColumn title="Majors">
+          <SubColumn title="Majors" flex="1 1 360px" maxWidth="460px">
             <p
               style={{
                 margin: 0,
