@@ -456,13 +456,13 @@ export default function Home() {
       {/* Hero */}
       <section
         style={{
-          minHeight: "calc(100vh - 165px)",
+          minHeight: "calc(100vh - 320px)",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           textAlign: "center",
-          padding: "40px 24px",
+          padding: "24px 24px 40px",
           gap: "24px",
         }}
       >
