@@ -424,7 +424,7 @@ export default function Home() {
             flexWrap: "wrap",
             justifyContent: "center",
             gap: "20px",
-            width: "min(1200px, 94vw)",
+            width: "min(1400px, 96vw)",
           }}
         >
           {BROTHERS.map((b) => (
@@ -433,7 +433,7 @@ export default function Home() {
               src={encodeURI(b.src)}
               alt={b.name}
               style={{
-                width: "min(220px, 60vw)",
+                width: "min(260px, 42vw)",
                 borderRadius: "12px",
                 display: "block",
               }}
