@@ -34,7 +34,6 @@ export default function Home() {
         }}
       >
         {TABS.map((tab) => {
-          const isActive = tab === active;
           return (
             <button
               key={tab}
@@ -48,8 +47,7 @@ export default function Home() {
                 fontSize: "15px",
                 fontWeight: 600,
                 color: "#ffffff",
-                textDecoration: isActive ? "underline" : "none",
-                textUnderlineOffset: "6px",
+                textDecoration: "none",
               }}
             >
               {tab}
@@ -64,12 +62,11 @@ export default function Home() {
           style={{
             marginLeft: "auto",
             padding: "10px 18px",
-            borderRadius: "9999px",
             fontSize: "15px",
-            fontWeight: 700,
+            fontWeight: 600,
             textDecoration: "none",
-            color: "#4B286D",
-            backgroundColor: "#F5C542",
+            color: "#ffffff",
+            background: "transparent",
           }}
         >
           Interested In Joining?
