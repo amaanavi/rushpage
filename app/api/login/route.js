@@ -1,8 +1,11 @@
 import bcrypt from "bcryptjs";
-import { sql } from "../../lib/db";
+import { getSql } from "../../lib/db";
 import { setSessionCookie } from "../../lib/session";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(request) {
+  const sql = getSql();
   let body;
   try {
     body = await request.json();
