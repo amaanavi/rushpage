@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 const FORM_URL =
   "https://docs.google.com/forms/d/1tXk4yM9OBMUEcgwQmtXekEjcnMQbn38vWdgj0BODFsk/viewform";
@@ -313,6 +313,28 @@ function Section({ id, title, children, minHeight }) {
 }
 
 export default function Home() {
+  const [user, setUser] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    fetch("/api/me")
+      .then((r) => r.json())
+      .then((d) => {
+        if (active) setUser(d.user);
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  function logout() {
+    fetch("/api/logout", { method: "POST" }).then(() => {
+      window.location.reload();
+    });
+  }
+
   return (
     <main
       style={{
@@ -375,20 +397,89 @@ export default function Home() {
           Interested In Joining?
         </a>
 
-        <a
-          href="/login"
-          style={{
-            padding: "9px 20px",
-            fontSize: "15px",
-            fontWeight: 600,
-            textDecoration: "none",
-            color: "#ffffff",
-            border: "1px solid rgba(255,255,255,0.55)",
-            borderRadius: "9999px",
-          }}
-        >
-          Log In
-        </a>
+        {user ? (
+          <div style={{ position: "relative" }}>
+            <button
+              onClick={() => setMenuOpen((o) => !o)}
+              style={{
+                padding: "9px 20px",
+                fontSize: "15px",
+                fontWeight: 600,
+                color: "#ffffff",
+                background: "transparent",
+                border: "1px solid rgba(255,255,255,0.55)",
+                borderRadius: "9999px",
+                cursor: "pointer",
+                maxWidth: "240px",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {user.email}
+            </button>
+
+            {menuOpen && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "calc(100% + 8px)",
+                  right: 0,
+                  minWidth: "220px",
+                  background: "#3d2168",
+                  border: "1px solid rgba(255,255,255,0.2)",
+                  borderRadius: "12px",
+                  padding: "14px",
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
+                  zIndex: 20,
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "13px",
+                    opacity: 0.8,
+                    marginBottom: "12px",
+                    wordBreak: "break-all",
+                  }}
+                >
+                  Signed in as<br />
+                  <strong>{user.email}</strong>
+                </div>
+                <button
+                  onClick={logout}
+                  style={{
+                    width: "100%",
+                    padding: "10px",
+                    borderRadius: "9999px",
+                    border: "none",
+                    cursor: "pointer",
+                    background: "#ffffff",
+                    color: "#4E2C84",
+                    fontSize: "14px",
+                    fontWeight: 700,
+                  }}
+                >
+                  Log out
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <a
+            href="/login"
+            style={{
+              padding: "9px 20px",
+              fontSize: "15px",
+              fontWeight: 600,
+              textDecoration: "none",
+              color: "#ffffff",
+              border: "1px solid rgba(255,255,255,0.55)",
+              borderRadius: "9999px",
+            }}
+          >
+            Log In
+          </a>
+        )}
       </nav>
 
       {/* Crest (top-left) + Contact (top-right), below the sticky bar */}
