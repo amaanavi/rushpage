@@ -54,10 +54,8 @@ const EVENTS = {
   "2026-8-19": ["Fiji Club Night: Open Event"],
   "2026-8-20": ["Football Watch Party: Open Event"],
   "2026-8-24": ["Social: Invite Only"],
-  "2026-8-26": ["Fiji Club Night", "AP?"],
-  "2026-8-28": ["Fourth Fiji Brothers Meeting", "Final Vote on Pledges"],
-  "2026-9-1": ["Last Pinning", "Third Social?"],
-  "2026-9-4": ["Official Pinning Ceremony", "Dinner at Duke of York"],
+  "2026-8-26": ["Fiji Club Night: Open Event"],
+  "2026-9-1": ["Second Social: Invite Only"],
 };
 
 function scrollToId(id) {
