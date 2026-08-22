@@ -10,7 +10,15 @@ const NAV = [
   { label: "Rush Schedule", target: "rush-schedule" },
   { label: "Other Events", target: "other-events" },
   { label: "Meet The Brothers", target: "meet-the-brothers" },
+  { label: "Brothers", target: "brothers" },
 ];
+
+// Every brother's headshot, in the exact order they appear in the folder
+// (Finder's numeric order by the file number).
+const BROTHER_PHOTOS = [
+  3, 6, 17, 27, 34, 37, 44, 52, 67, 74, 77, 86, 92, 99, 109, 112, 117, 123, 129,
+  137, 145, 160, 174, 178, 182,
+].map((n) => `/Fiji-2026-${n}.jpg`);
 
 // Order: President, VP, Recording Sec., Corresponding Sec., Historian
 const BROTHERS = [
@@ -728,6 +736,33 @@ export default function Home() {
               ))}
             </p>
           </SubColumn>
+        </div>
+      </Section>
+
+      <Section id="brothers" title="Brothers">
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+            gap: "18px",
+            width: "min(1200px, 94vw)",
+          }}
+        >
+          {BROTHER_PHOTOS.map((src) => (
+            <img
+              key={src}
+              src={src}
+              alt="Brother"
+              loading="lazy"
+              style={{
+                width: "100%",
+                aspectRatio: "2 / 3",
+                objectFit: "cover",
+                borderRadius: "12px",
+                display: "block",
+              }}
+            />
+          ))}
         </div>
       </Section>
 
