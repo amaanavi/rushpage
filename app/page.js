@@ -6,6 +6,7 @@ const FORM_URL =
   "https://docs.google.com/forms/d/1tXk4yM9OBMUEcgwQmtXekEjcnMQbn38vWdgj0BODFsk/viewform";
 
 const NAV = [
+  { label: "Contact", target: "contact" },
   { label: "Rush Schedule", target: "rush-schedule" },
   { label: "Other Events", target: "other-events" },
   { label: "Meet The Brothers", target: "meet-the-brothers" },
@@ -394,6 +395,39 @@ export default function Home() {
           borderBottom: "1px solid rgba(255,255,255,0.2)",
         }}
       >
+        {/* Centered emblem — click to return to the top */}
+        <button
+          onClick={() =>
+            window.scrollTo({ top: 0, behavior: "smooth" })
+          }
+          aria-label="Back to top"
+          style={{
+            position: "absolute",
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "46px",
+            height: "46px",
+            borderRadius: "50%",
+            overflow: "hidden",
+            border: "none",
+            background: "transparent",
+            cursor: "pointer",
+            padding: 0,
+          }}
+        >
+          <img
+            src="/IMG_4307.jpeg"
+            alt="FIJI"
+            style={{
+              width: "114%",
+              height: "114%",
+              objectFit: "cover",
+              transform: "translate(-6%, -6%)",
+            }}
+          />
+        </button>
+
         {NAV.map((item) => (
           <button
             key={item.target}
@@ -553,45 +587,6 @@ export default function Home() {
           gap: "24px",
         }}
       >
-        {/* Contact — bottom-left of the landing screen */}
-        <div
-          style={{
-            position: "absolute",
-            left: "24px",
-            bottom: "24px",
-            textAlign: "left",
-          }}
-        >
-          <div style={{ fontSize: "17px", fontWeight: 700, marginBottom: "6px" }}>
-            Contact
-          </div>
-          {CONTACTS.map((c) => (
-            <a
-              key={c.url}
-              href={c.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "block",
-                fontSize: "14px",
-                lineHeight: 1.6,
-                color: "#ffffff",
-                textDecoration: "none",
-              }}
-            >
-              {c.label}:{" "}
-              <span
-                style={{
-                  fontWeight: 600,
-                  textDecoration: "underline",
-                  textUnderlineOffset: "3px",
-                }}
-              >
-                {c.handle}
-              </span>
-            </a>
-          ))}
-        </div>
 
         <div
           style={{
@@ -615,6 +610,46 @@ export default function Home() {
       </section>
 
       {/* Sections */}
+      <Section id="contact" title="Contact">
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "56px",
+            width: "min(1000px, 94vw)",
+          }}
+        >
+          {CONTACTS.map((c) => (
+            <a
+              key={c.url}
+              href={c.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: "#ffffff",
+                textDecoration: "none",
+                textAlign: "center",
+              }}
+            >
+              <div style={{ fontSize: "16px", opacity: 0.85, marginBottom: "6px" }}>
+                {c.label}
+              </div>
+              <div
+                style={{
+                  fontSize: "20px",
+                  fontWeight: 700,
+                  textDecoration: "underline",
+                  textUnderlineOffset: "4px",
+                }}
+              >
+                {c.handle}
+              </div>
+            </a>
+          ))}
+        </div>
+      </Section>
+
       <Section id="rush-schedule" title="Rush Schedule" minHeight="100vh">
         <Calendar />
       </Section>
