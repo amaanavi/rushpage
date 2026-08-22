@@ -315,7 +315,9 @@ function Section({ id, title, children, minHeight }) {
         borderTop: "1px solid rgba(255,255,255,0.15)",
       }}
     >
-      <h2 style={{ margin: 0, fontSize: "30px", fontWeight: 700 }}>{title}</h2>
+      {title && (
+        <h2 style={{ margin: 0, fontSize: "30px", fontWeight: 700 }}>{title}</h2>
+      )}
       {children}
     </section>
   );
@@ -690,7 +692,39 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Side-by-side subsections */}
+      </Section>
+
+      {user && (
+        <Section id="brothers" title="Brothers">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+              gap: "18px",
+              width: "min(1200px, 94vw)",
+            }}
+          >
+            {BROTHER_PHOTOS.map((src) => (
+              <img
+                key={src}
+                src={src}
+                alt="Brother"
+                loading="lazy"
+                style={{
+                  width: "100%",
+                  aspectRatio: "2 / 3",
+                  objectFit: "cover",
+                  borderRadius: "12px",
+                  display: "block",
+                }}
+              />
+            ))}
+          </div>
+        </Section>
+      )}
+
+      {/* Summer Internships + Majors */}
+      <Section id="brothers-stats">
         <div
           style={{
             display: "flex",
@@ -699,7 +733,6 @@ export default function Home() {
             alignItems: "flex-start",
             gap: "48px",
             width: "min(1400px, 96vw)",
-            marginTop: "48px",
           }}
         >
           <SubColumn title="Summer Internships" flex="1 1 720px" maxWidth="860px">
@@ -738,35 +771,6 @@ export default function Home() {
           </SubColumn>
         </div>
       </Section>
-
-      {user && (
-        <Section id="brothers" title="Brothers">
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-              gap: "18px",
-              width: "min(1200px, 94vw)",
-            }}
-          >
-            {BROTHER_PHOTOS.map((src) => (
-              <img
-                key={src}
-                src={src}
-                alt="Brother"
-                loading="lazy"
-                style={{
-                  width: "100%",
-                  aspectRatio: "2 / 3",
-                  objectFit: "cover",
-                  borderRadius: "12px",
-                  display: "block",
-                }}
-              />
-            ))}
-          </div>
-        </Section>
-      )}
 
       {/* Admin: circular check-mark handle + pull-open right sidebar */}
       {isAdmin && (
