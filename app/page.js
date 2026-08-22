@@ -13,11 +13,11 @@ const NAV = [
   { label: "Brothers", target: "brothers" },
 ];
 
-// Every brother's headshot, in the exact order they appear in the folder
-// (Finder's numeric order by the file number).
+// Every brother's headshot, in the exact order they're arranged in the folder
+// (from the Finder icon layout, read top-to-bottom, left-to-right).
 const BROTHER_PHOTOS = [
-  3, 6, 17, 27, 34, 37, 44, 52, 67, 74, 77, 86, 92, 99, 109, 112, 117, 123, 129,
-  137, 145, 160, 174, 178, 182,
+  67, 74, 86, 52, 37, 77, 109, 112, 99, 129, 6, 178, 44, 92, 174, 123, 3, 145,
+  160, 182, 137, 117, 34, 27, 17,
 ].map((n) => `/Fiji-2026-${n}.jpg`);
 
 // Order: President, VP, Recording Sec., Corresponding Sec., Historian
