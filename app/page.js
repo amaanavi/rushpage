@@ -18,7 +18,7 @@ const NAV = [
 const BROTHER_PHOTOS = [
   67, 74, 86, 52, 37, 77, 109, 112, 99, 129, 6, 178, 44, 92, 174, 123, 3, 145,
   160, 182, 137, 117, 34, 27, 17,
-].map((n) => `/Fiji-2026-${n}.jpg`);
+].map((n) => `/api/brother-photo/Fiji-2026-${n}.jpg`);
 
 // Order: President, VP, Recording Sec., Corresponding Sec., Historian
 const BROTHERS = [
@@ -436,7 +436,7 @@ export default function Home() {
           />
         </button>
 
-        {NAV.map((item) => (
+        {NAV.filter((item) => item.target !== "brothers" || user).map((item) => (
           <button
             key={item.target}
             onClick={() => scrollToId(item.target)}
@@ -739,32 +739,34 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section id="brothers" title="Brothers">
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-            gap: "18px",
-            width: "min(1200px, 94vw)",
-          }}
-        >
-          {BROTHER_PHOTOS.map((src) => (
-            <img
-              key={src}
-              src={src}
-              alt="Brother"
-              loading="lazy"
-              style={{
-                width: "100%",
-                aspectRatio: "2 / 3",
-                objectFit: "cover",
-                borderRadius: "12px",
-                display: "block",
-              }}
-            />
-          ))}
-        </div>
-      </Section>
+      {user && (
+        <Section id="brothers" title="Brothers">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+              gap: "18px",
+              width: "min(1200px, 94vw)",
+            }}
+          >
+            {BROTHER_PHOTOS.map((src) => (
+              <img
+                key={src}
+                src={src}
+                alt="Brother"
+                loading="lazy"
+                style={{
+                  width: "100%",
+                  aspectRatio: "2 / 3",
+                  objectFit: "cover",
+                  borderRadius: "12px",
+                  display: "block",
+                }}
+              />
+            ))}
+          </div>
+        </Section>
+      )}
 
       {/* Admin: circular check-mark handle + pull-open right sidebar */}
       {isAdmin && (
