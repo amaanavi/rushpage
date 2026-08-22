@@ -315,6 +315,11 @@ function Section({ id, title, children, minHeight }) {
 export default function Home() {
   const [user, setUser] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [adminOpen, setAdminOpen] = useState(false);
+  const [pending, setPending] = useState([]);
+  const [actBusy, setActBusy] = useState(null);
+
+  const isAdmin = user?.role === "admin";
 
   useEffect(() => {
     let active = true;
@@ -328,6 +333,35 @@ export default function Home() {
       active = false;
     };
   }, []);
+
+  // Keep the pending count fresh for admins.
+  useEffect(() => {
+    if (!isAdmin) return;
+    loadPending();
+  }, [isAdmin]);
+
+  function loadPending() {
+    fetch("/api/admin/pending")
+      .then((r) => (r.ok ? r.json() : { pending: [] }))
+      .then((d) => setPending(d.pending || []))
+      .catch(() => {});
+  }
+
+  async function decide(id, kind) {
+    setActBusy(id);
+    try {
+      const res = await fetch(`/api/admin/${kind}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+      if (res.ok) setPending((p) => p.filter((u) => u.id !== id));
+    } catch {
+      /* ignore */
+    } finally {
+      setActBusy(null);
+    }
+  }
 
   function logout() {
     fetch("/api/logout", { method: "POST" }).then(() => {
@@ -446,34 +480,6 @@ export default function Home() {
                   <strong>{user.email}</strong>
                 </div>
 
-                <a
-                  href="/members"
-                  style={{
-                    display: "block",
-                    padding: "8px 4px",
-                    fontSize: "14px",
-                    color: "#fff",
-                    textDecoration: "none",
-                  }}
-                >
-                  Members Area
-                </a>
-                {user.role === "admin" && (
-                  <a
-                    href="/admin"
-                    style={{
-                      display: "block",
-                      padding: "8px 4px",
-                      marginBottom: "6px",
-                      fontSize: "14px",
-                      color: "#fff",
-                      textDecoration: "none",
-                    }}
-                  >
-                    Admin
-                  </a>
-                )}
-
                 <button
                   onClick={logout}
                   style={{
@@ -511,16 +517,8 @@ export default function Home() {
         )}
       </nav>
 
-      {/* Crest (top-left) + Contact (top-right), below the sticky bar */}
-      <aside
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          gap: "16px",
-          padding: "20px 24px 0",
-        }}
-      >
+      {/* Crest (top-left), below the sticky bar */}
+      <aside style={{ padding: "20px 24px 0" }}>
         <div
           style={{
             width: "90px",
@@ -539,8 +537,31 @@ export default function Home() {
             style={{ maxWidth: "88%", maxHeight: "96%", objectFit: "contain" }}
           />
         </div>
+      </aside>
 
-        <div style={{ textAlign: "right" }}>
+      {/* Hero */}
+      <section
+        style={{
+          position: "relative",
+          minHeight: "calc(100vh - 200px)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          textAlign: "center",
+          padding: "24px 24px 40px",
+          gap: "24px",
+        }}
+      >
+        {/* Contact — bottom-left of the landing screen */}
+        <div
+          style={{
+            position: "absolute",
+            left: "24px",
+            bottom: "24px",
+            textAlign: "left",
+          }}
+        >
           <div style={{ fontSize: "17px", fontWeight: 700, marginBottom: "6px" }}>
             Contact
           </div>
@@ -571,21 +592,7 @@ export default function Home() {
             </a>
           ))}
         </div>
-      </aside>
 
-      {/* Hero */}
-      <section
-        style={{
-          minHeight: "calc(100vh - 200px)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          textAlign: "center",
-          padding: "24px 24px 40px",
-          gap: "24px",
-        }}
-      >
         <div
           style={{
             width: "min(40vh, 80vw)",
@@ -688,6 +695,198 @@ export default function Home() {
           </SubColumn>
         </div>
       </Section>
+
+      {/* Admin: circular check-mark handle + pull-open right sidebar */}
+      {isAdmin && (
+        <>
+          <button
+            onClick={() => {
+              loadPending();
+              setAdminOpen(true);
+            }}
+            aria-label="Pending admissions"
+            style={{
+              position: "fixed",
+              right: "20px",
+              bottom: "24px",
+              width: "56px",
+              height: "56px",
+              borderRadius: "50%",
+              border: "none",
+              cursor: "pointer",
+              background: "#ffffff",
+              color: "#4E2C84",
+              boxShadow: "0 8px 24px rgba(0,0,0,0.35)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              zIndex: 60,
+            }}
+          >
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M5 12.5l4.2 4.2L19 7"
+                stroke="#4E2C84"
+                strokeWidth="2.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            {pending.length > 0 && (
+              <span
+                style={{
+                  position: "absolute",
+                  top: "-4px",
+                  right: "-4px",
+                  minWidth: "22px",
+                  height: "22px",
+                  borderRadius: "9999px",
+                  background: "#F5C542",
+                  color: "#4E2C84",
+                  fontSize: "12px",
+                  fontWeight: 800,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "0 5px",
+                }}
+              >
+                {pending.length}
+              </span>
+            )}
+          </button>
+
+          {adminOpen && (
+            <>
+              <div
+                onClick={() => setAdminOpen(false)}
+                style={{
+                  position: "fixed",
+                  inset: 0,
+                  background: "rgba(0,0,0,0.5)",
+                  zIndex: 60,
+                }}
+              />
+              <aside
+                style={{
+                  position: "fixed",
+                  top: 0,
+                  right: 0,
+                  height: "100%",
+                  width: "min(400px, 92vw)",
+                  background: "#3d2168",
+                  borderLeft: "1px solid rgba(255,255,255,0.2)",
+                  boxShadow: "-12px 0 40px rgba(0,0,0,0.4)",
+                  zIndex: 70,
+                  padding: "26px 22px",
+                  overflowY: "auto",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: "18px",
+                  }}
+                >
+                  <h2 style={{ margin: 0, fontSize: "20px", fontWeight: 700 }}>
+                    New Admissions{" "}
+                    <span style={{ opacity: 0.6, fontWeight: 400 }}>
+                      ({pending.length})
+                    </span>
+                  </h2>
+                  <button
+                    onClick={() => setAdminOpen(false)}
+                    aria-label="Close"
+                    style={{
+                      background: "transparent",
+                      border: "none",
+                      color: "#fff",
+                      fontSize: "24px",
+                      cursor: "pointer",
+                      lineHeight: 1,
+                    }}
+                  >
+                    ×
+                  </button>
+                </div>
+
+                {pending.length === 0 ? (
+                  <p style={{ opacity: 0.7 }}>No one is waiting for admission.</p>
+                ) : (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                    {pending.map((u) => (
+                      <div
+                        key={u.id}
+                        style={{
+                          background: "rgba(255,255,255,0.08)",
+                          border: "1px solid rgba(255,255,255,0.16)",
+                          borderRadius: "12px",
+                          padding: "14px",
+                        }}
+                      >
+                        <div
+                          style={{
+                            fontSize: "15px",
+                            fontWeight: 600,
+                            wordBreak: "break-all",
+                          }}
+                        >
+                          {u.email}
+                        </div>
+                        <div
+                          style={{
+                            fontSize: "12px",
+                            opacity: 0.7,
+                            margin: "3px 0 12px",
+                          }}
+                        >
+                          Requested {new Date(u.created_at).toLocaleDateString()}
+                        </div>
+                        <div style={{ display: "flex", gap: "10px" }}>
+                          <button
+                            disabled={actBusy === u.id}
+                            onClick={() => decide(u.id, "approve")}
+                            style={{
+                              padding: "8px 16px",
+                              borderRadius: "9999px",
+                              border: "none",
+                              cursor: "pointer",
+                              background: "#ffffff",
+                              color: "#4E2C84",
+                              fontSize: "13px",
+                              fontWeight: 700,
+                            }}
+                          >
+                            Admit
+                          </button>
+                          <button
+                            disabled={actBusy === u.id}
+                            onClick={() => decide(u.id, "reject")}
+                            style={{
+                              padding: "8px 16px",
+                              borderRadius: "9999px",
+                              border: "1px solid #ff9d9d",
+                              cursor: "pointer",
+                              background: "transparent",
+                              color: "#ff9d9d",
+                              fontSize: "13px",
+                              fontWeight: 700,
+                            }}
+                          >
+                            Reject
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </aside>
+            </>
+          )}
+        </>
+      )}
     </main>
   );
 }
